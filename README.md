@@ -1,0 +1,277 @@
+# Apuntes_Semana Doce
+Apuntes control de movimiento - Segundo Corte - Novena Semana
+
+# Control de Movimiento (Diseño de Transmisión)
+
+**Introducción al Diseño de Transmisión**
+
+El diseño de transmisión se encarga de transferir potencia y movimiento entre componentes mecánicos, utilizando elementos como engranajes, correas y cadenas. Su objetivo es garantizar eficiencia, durabilidad y seguridad en sistemas como vehículos, maquinaria y robótica. Un diseño adecuado optimiza el rendimiento, reduce el desgaste y mejora la eficiencia energética, combinando principios de cinemática, dinámica y resistencia de materiales.
+
+## 1. Requerimientos de diseño
+
+Para que el diseño en control de movimiento no tenga ningún inconveniente se requiere una excelente selección de un motor y la transmisión del sistema para que el movimiento sea llevado a cabo en la carga o una herramienta. Para este diseño se deben tener en cuenta los siguientes indicadores:
+
+* Garantizar que el torque del motor a su máxima velocidad sea suficiente para la aplicación, considerando un margen de seguridad.
+
+* Verificar que la relación de inercia entre el motor y la carga sea la adecuada para un desempeño óptimo.
+
+* Asegurar que el diseño cumpla con criterios adicionales como costo, precisión y tiempos de ciclo, según los requisitos del sistema.
+
+Existen diferentes tipos de problemas que nos enfrentamos al momento de diseñar en el cual se especifíca que es lo que se debe solucionar:
+
+* Teniendo el Movimiento de carga deseado	se busca -> dimensionar la Transmisión y motor.
+
+* Teniendo el Motor y transmisión existentes	se busca -> dimensionar el Movimiento de carga resultante.
+
+* Teniendo el Motor existente, movimiento de carga deseado se busca -> dimensionar la Transmisión.
+
+* Teniendo el Movimiento de carga deseado, transmisión se busca-> dimensionar el Motor.
+
+## 2. Inercia y Torque Reflejado
+
+**Inercia Reflejada**: Es la inercia equivalente que el motor "siente" debido a la carga y los elementos de transmisión. Se calcula ajustando la inercia de la carga $J_{L}$ a la referencia del motor mediante la relación de transmisión (N):
+
+$J_{r}:J_{L}*N^{2}$
+
+Donde N es la relación que contempla la transmisión
+
+**Torque Reflejado:** Es el torque que el motor debe generar para mover la carga a través de la transmisión. Se obtiene transformando el torque de la carga $T_{L}$ a la referencia del motor:
+
+$$T_{r}:\frac{T_{L}}{N}$$
+
+## 3. Conceptos de Transmisión Engranajes
+
+La relación de engranajes determina cómo se transmite el movimiento y el torque entre engranajes de distintos tamaños en un sistema mecánico. Se define como la razón entre el número de dientes o los diámetros de los engranajes involucrados:
+
+$$N = \frac{Z_{conducido}}{Z_{conductor}} = \frac{D_{conducido}}{D_{conductor}}$$
+
+Donde:
+
+* 𝑍 es el número de dientes.
+
+* 𝐷 es el diámetro del engranaje.
+
+* N es la relación de transmisión.
+
+**Efectos de la Relación de Engranajes**
+
+*Reducción de velocidad (𝑁 > 1)*
+
+* El engranaje conducido es más grande que el conductor.
+
+* La velocidad angular disminuye, pero el torque aumenta.
+
+*Aumento de velocidad (𝑁 < 1)*
+
+* El engranaje conducido es más pequeño.
+
+* La velocidad angular aumenta, pero el torque disminuye.
+
+*Relación 1:1 (N=1)*
+
+* Ambos engranajes tienen el mismo tamaño.
+
+* No hay cambio en la velocidad ni en el torque.
+
+### 3.1. Eficiencia
+
+La eficiencia en el control de movimiento se refiere a la capacidad de un sistema para transformar la energía en movimiento preciso y efectivo, minimizando pérdidas y optimizando el desempeño.
+
+**Factores Clave en la Eficiencia**
+
+*Transmisión de Energía*
+
+* Usar mecanismos de transmisión eficientes, como engranajes de alta precisión o correas síncronas con baja fricción.
+
+* Minimizar pérdidas por rozamiento y holguras en acoplamientos mecánicos.
+
+*Control del Torque y la Velocidad*
+
+* Implementar controladores PID o algoritmos avanzados para ajustar dinámicamente el torque y la velocidad.
+
+* Asegurar una relación de inercia adecuada entre el motor y la carga para mejorar la respuesta del sistema.
+
+*Reducción de Pérdidas Energéticas*
+
+* Seleccionar motores y accionamientos con alta eficiencia.
+
+* Evitar sobrecargas y diseñar el sistema para operar dentro del rango óptimo de eficiencia del motor.
+
+*Optimización del Perfil de Movimiento*
+
+* Usar aceleraciones y desaceleraciones suaves para evitar picos de corriente y desgaste mecánico.
+
+* Aplicar técnicas como interpolación y control de trayectoria para mejorar la precisión y reducir vibraciones.
+
+*Selección de Sensores y Realimentación*
+
+* Implementar sensores de alta resolución para mejorar la precisión y estabilidad del control.
+
+* Utilizar sistemas de retroalimentación en tiempo real para corregir desviaciones y mejorar la eficiencia del sistema.
+  
+### 3.2. Inercia Total
+
+Es la suma de todas las inercias reflejadas al eje del motor. Incluye la inercia del propio motor, la inercia de la carga y la de los elementos de transmisión, ajustadas según la relación de transmisión. Se expresa mediante la fórmula general:
+
+$$J{total} = J{motor} + J{transmisión} + J{carga} {reflejada}$$
+
+Donde:
+
+* $J{motor}$: Es la inercia del rotor del motor.
+
+* $J{transmision}$: Es la inercia de engranajes, poleas, correas, etc.
+
+*$J{carga reflejada}$: ​Es la inercia de la carga ajustada a la referencia del motor, calculada como:
+
+$$J{carga}{reflejada} : J{carga} * N^{2}$$
+
+Donde N está dado por la relación de transmisión.
+
+$N: \frac{W_{motor}}{W_{carga}}$
+
+**Importancia del Cálculo de la Inercia Total**
+* *Afecta la respuesta dinámica: Una inercia elevada requiere mayor torque para acelerar y desacelerar.*
+* *Influye en la selección del motor: Un desbalance entre la inercia del motor y la carga puede afectar la estabilidad y eficiencia del sistema.*
+* *Optimiza el control de movimiento: Una inercia total bien calculada permite un control más preciso y eficiente del sistema.*
+  
+### 3.3. Relación de Inercia
+
+Es un parámetro clave en el diseño de sistemas de control de movimiento, ya que indica el equilibrio dinámico entre el motor y la carga. Se define como la razón entre la inercia reflejada de la carga y la inercia del rotor del motor
+
+Relación de Inercia: $$\frac{J{carga} {reflejada}}{J_{motor}}$$
+
+**Donde:**
+* $J{carga} {reflejada}: J_{carga} * N^{2}$ (si hay una transmisión con relación N)
+* $J_{motor}$ es la inercia del motor
+
+**Práctica de la relación de Inercia**
+
+En la práctica, la relación de inercia entre la carga y el motor es un aspecto clave para lograr un sistema de movimiento eficiente y confiable. Esta relación influye directamente en el comportamiento dinámico del sistema, así como en la selección del motor y la transmisión. Dependiendo del tipo de aplicación y sus exigencias, se pueden presentar distintos escenarios que vale la pena considerar:
+
+* *Relación de inercia baja (rango de 1 a 2)*: Es adecuada para aplicaciones que requieren movimientos rápidos, con frecuentes arranques y paradas. No obstante, puede implicar el uso de un motor sobredimensionado, lo cual aumenta los costos y reduce la eficiencia energética.
+
+* *Relación de inercia alta (mayor a 10):* Se emplea en situaciones donde no se necesita una alta dinámica, como en movimientos lentos o constantes. Aunque puede reducir el tamaño del motor, también conlleva riesgos como una baja eficiencia del sistema o torque insuficiente para cumplir con la tarea.
+
+Por ello, elegir correctamente la relación de inercia según la aplicación es esencial para optimizar el rendimiento y evitar problemas en el diseño de sistemas de control de movimiento.
+Un sensores un dispositivo que detecta cambios en una magnitud física o química, como temperatura, presión o luz, y los convierte en señales eléctricas para su procesamiento. Se usa en diversos sistemas para monitoreo y automatización.
+
+
+## 4. Concepto Transmisión Polea-Correa
+
+El sistema de transmisión por polea y correa es un mecanismo ampliamente utilizado para transferir movimiento y potencia entre dos ejes separados. Este tipo de transmisión se basa en el uso de una correa flexible que conecta dos poleas: una motriz (conectada al motor) y otra conducida (conectada a la carga). Al girar la polea motriz, la correa transmite ese movimiento a la polea conducida, permitiendo modificar la velocidad y el torque de salida según el diámetro de las poleas involucradas.
+
+Entre sus ventajas destacan la simplicidad mecánica, el bajo costo, el funcionamiento silencioso y la capacidad de absorber vibraciones. Además, permite transmisiones a distancia y cierta flexibilidad en la alineación de los ejes. Sin embargo, también presenta desventajas como el posible deslizamiento de la correa, la necesidad de mantenimiento periódico (ajuste de tensión y reemplazo de la correa) y una eficiencia menor comparada con sistemas más rígidos como engranajes.
+
+**Puntos claves:**
+
+* *Relación de transmisión:* Se determina por el cociente entre los diámetros de las poleas. Esto permite adaptar la velocidad y el torque entre el motor y la carga.
+
+* *Tensión adecuada:* Es fundamental mantener la correa con la tensión correcta para evitar deslizamientos y asegurar una transmisión eficiente y duradera.
+
+### 4.1. Relación de Transmisión
+
+La relación de transmisión en un sistema de polea-correa indica cómo se modifica la velocidad de rotación entre la polea motriz (la que transmite el movimiento) y la polea conducida (la que recibe el movimiento). Esta relación depende directamente del tamaño de las poleas, y se calcula como:
+
+Relación de transmisión (i) = $$\frac {Diámetro de la polea conducida}{Diámetro de la polea motriz}$$
+
+Este valor también puede expresarse usando las velocidades de rotación:
+
+$$i: \frac{Velocidad de la polea motriz}{Velocidad de la polea conducida}$$
+
+### 4.2. Inercia Reflejada
+
+En un sistema de polea-correa, la inercia reflejada se refiere a cómo la inercia de la carga (conectada a la polea conducida) se “ve” desde el motor (polea motriz), tomando en cuenta la relación de transmisión. Este concepto es clave en el diseño de sistemas de control de movimiento, ya que afecta directamente la respuesta dinámica del motor.
+
+La inercia reflejada $J_{ref}$ al eje del motor se obtiene mediante la siguiente fórmula:
+
+$$J_{ref}: \frac{J_{carga}}{i^{2}}$$
+
+Donde:
+* $J_{carga}$ es la inercia real de la carga.
+* 𝑖
+i es la relación de transmisión (diámetro polea conducida / diámetro polea motriz).
+
+### 4.3. Torque de Carga
+
+El torque de carga en un sistema de transmisión por polea-correa es el torque que debe entregar el motor para mover la carga conectada a la polea conducida. Este torque depende de la relación de transmisión, el tipo de carga y la eficiencia del sistema.
+
+**Relación entre torque del motor y torque de la carga:**
+
+$$T{motor}: \frac{T_{carga}}{i*n}$$
+
+Donde:
+
+* $T{motor}$ es el torque que debe generar el motor
+* $T_{carga}$ es el torque requerido por la carga
+* $i$ es la relación de transmisión (diámetro polea conducida / diámetro polea motriz)
+* $n$ es la eficiencia del sistema (entre 0 y 1)
+
+## 5. Ejercicios
+
+### Una carga tiene una inercia de 0.05 kg·m² y se conecta a un motor a través de una relación de transmisión de 4:1.
+* Calcula la inercia reflejada al motor.
+
+$$J_{r}=\frac{J_{L}}{N^{2}}$$
+
+$J_{r}=\frac{0.05}{4^{2}}$
+
+$J_{r}=\frac{0.05}{16}$
+
+$J_{r}=0.003125 Kg*m^{2}$
+
+* Si el torque requerido por la carga es de 2 Nm, ¿cuánto torque reflejado sentirá el motor?
+
+$$T_{r}= \frac{T_{L}}{N}$$
+
+$T_{r}=\frac{2}{4}$
+
+$T_{r}=0.5 Nm$
+
+
+### Un motor eléctrico proporciona un torque constante de 3 Nm a una velocidad de 1500 rpm.
+
+* Calcular la potencia mecánica entregada por el motor en watts.
+
+$$P=T*\omega$$
+
+$T=3 Nm$
+
+$\omega = 2\pi * \frac{rpm}{60}$
+
+$\omega=2\pi* \frac{1500}{60}$
+
+$\omega=2\pi * 25$
+
+$\omega = 157.08 rad/s$
+
+$P=3*157,08$
+
+$P=471,24 W$
+
+### Un sistema de transmisión tiene una eficiencia del 85%. Si el motor entrega una potencia de 500 W:
+
+*  Calcular la potencia útil disponible en la carga.
+
+$$P_{util}=\eta*P_{entrada}$$
+
+$P_{util}=0.85*500$
+
+$P_{util}= 425 W$
+
+## 6. Conclusiones
+
+* El diseño correcto de sistemas de transmisión mecánica (engranajes, correas, cadenas) es esencial para garantizar eficiencia, precisión, seguridad y durabilidad en sistemas automatizados y mecatrónicos.
+* Una correcta elección del motor y su relación con la transmisión y la carga permite alcanzar un funcionamiento óptimo. Esto requiere asegurar el torque necesario, una relación de inercia adecuada y el cumplimiento de criterios como el costo, precisión y tiempos de ciclo.
+* La inercia y el torque reflejados al eje del motor deben calcularse para anticipar el esfuerzo que el motor debe realizar. Esto es vital para evitar sobrecargas, mejorar el rendimiento dinámico y permitir un control más preciso.
+* La relación entre engranajes afecta directamente la velocidad y el torque transmitido. Además, mantener alta eficiencia en el sistema minimiza pérdidas energéticas, mejora la vida útil del equipo y reduce el consumo energético.
+* La relación define el equilibrio entre la inercia de la carga y la del motor. Mantenerla en rangos adecuados asegura un control estable y eficiente. Una mala relación puede llevar a inestabilidad, sobreesfuerzo del motor o pérdida de precisión.
+
+## 7. Referencias
+
+* Mecatrónica Integrada (2023). Motores eléctricos: Torque, potencia y eficiencia. Universidad Cooperativa de Colombia – Facultad de Ingeniería Mecatrónica. Material de estudio.
+
+* González, J. (2019). Principios de máquinas eléctricas y transformadores. McGraw-Hill.
+
+* Universidad Nacional de Colombia (2022). Laboratorio de máquinas eléctricas: prácticas con motores de inducción y corriente continua. Facultad de Ingeniería Eléctrica.
+
+* Universidad Cooperativa de Colombia – Facultad de Ingeniería Mecatrónica. (2023). Motores eléctricos: Torque, potencia y eficiencia. Material de estudio interno.
