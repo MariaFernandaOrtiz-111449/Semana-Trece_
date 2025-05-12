@@ -78,43 +78,28 @@ Al obtener el sistema en espacio de estados se obtiene que F es la variable desc
 
 * $y=X_{1}$
 
-**Torque Reflejado:** Es el torque que el motor debe generar para mover la carga a través de la transmisión. Se obtiene transformando el torque de la carga $T_{L}$ a la referencia del motor:
+![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/36e779fc961ac85343fa1080678cede0f9b1ab02/Observador%20de%20estados%20extendido.png)
 
-$$T_{r}:\frac{T_{L}}{N}$$
+*Imagen 2. Observador de estados extendido para NADRC*
 
-## 3. Conceptos de Transmisión Engranajes
+Una vez que se realiza el proceso en el espacio de estados, obtenemos la función del sistema controlado y libre de perturbaciones con un comportamiento integrador.
 
-La relación de engranajes determina cómo se transmite el movimiento y el torque entre engranajes de distintos tamaños en un sistema mecánico. Se define como la razón entre el número de dientes o los diámetros de los engranajes involucrados:
+* $X_{1}\cdot = X_{2}$
 
-$$N = \frac{Z_{conducido}}{Z_{conductor}} = \frac{D_{conducido}}{D_{conductor}}$$
+* $X_{2}\cdot = u_{0}$
 
-Donde:
+* $y = X_{1}$
 
-* 𝑍 es el número de dientes.
 
-* 𝐷 es el diámetro del engranaje.
+## 3. Funciones para la Acción de Control en el Caso No Lineal
 
-* N es la relación de transmisión.
+En el control ADRC aplicado a sistemas no lineales, la acción de control se diseña utilizando funciones no lineales que mejoran la robustez y la capacidad de rechazo de perturbaciones. Entre estas funciones destaca la función de no linealidad tipo fal (del inglés function approaching linearity), la cual suaviza el comportamiento del controlador cerca del origen y actúa como ganancia variable, adaptándose a la magnitud del error.
 
-**Efectos de la Relación de Engranajes**
+Estas funciones permiten construir controladores y observadores que no requieren la linealización del sistema, haciendo posible una respuesta eficiente y estable incluso en presencia de fuertes no linealidades o perturbaciones no modeladas.
 
-*Reducción de velocidad (𝑁 > 1)*
+* $u_{0} = k_{1}fal(r_{1} - z_{1}, \alpha _{1}, \delta) + k_{2}fal((r_{1}\cdot - z_{2}, \alpha_{2}, \delta)$
 
-* El engranaje conducido es más grande que el conductor.
-
-* La velocidad angular disminuye, pero el torque aumenta.
-
-*Aumento de velocidad (𝑁 < 1)*
-
-* El engranaje conducido es más pequeño.
-
-* La velocidad angular aumenta, pero el torque disminuye.
-
-*Relación 1:1 (N=1)*
-
-* Ambos engranajes tienen el mismo tamaño.
-
-* No hay cambio en la velocidad ni en el torque.
+ ![]()
 
 ### 3.1. Eficiencia
 
