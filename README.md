@@ -27,13 +27,56 @@ Durante el año 2014 Gao destaca 3 características sobre el funcionamiento ADRC
 
 ## 2. Componentes de un ADRC
 
+Para que el sistema funcione de una manera eficiente debe contener ciertos componentes  programables para la identificación del sistema y parámetros del mismo.
+
+* Generador de trayectorias
+
+* Observador de estado extendido
+
+* Controlador proporcional por retroalimentación de estados
+
+![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/03f9ebe2b21b3c40e13901f090c58441aeba6d6b/Componentes%20ADRC.png)
+
+*Imagen 1. Compontentes ADRC*
 
 
-**Inercia Reflejada**: Es la inercia equivalente que el motor "siente" debido a la carga y los elementos de transmisión. Se calcula ajustando la inercia de la carga $J_{L}$ a la referencia del motor mediante la relación de transmisión (N):
+**Rechazo Activo a Perturbaciones Sistema No lineal**
 
-$J_{r}:J_{L}*N^{2}$
+En el control de sistemas no lineales, uno de los mayores desafíos es lidiar con la complejidad del modelo y la presencia de perturbaciones externas o dinámicas internas no modeladas. A diferencia de los sistemas lineales, donde existen métodos bien establecidos para el diseño de controladores, los sistemas no lineales requieren enfoques más flexibles y robustos.
 
-Donde N es la relación que contempla la transmisión
+En este contexto, el Rechazo Activo de Perturbaciones (ADRC) surge como una alternativa eficaz que no depende de un modelo matemático exacto del sistema. En lugar de eso, el ADRC se enfoca en estimar y compensar en tiempo real una señal denominada perturbación total, que engloba tanto incertidumbres internas como perturbaciones externas. Esto permite que el sistema real se comporte como una planta nominal más sencilla, facilitando así el diseño del controlador, incluso en presencia de no linealidades.
+
+$ÿ = -a_{1}y\cdot --a_{0} + bu$
+
+La identificación del sistema en espacio de estados estaría dado de la siguiente manera:
+
+* $X_{1}\cdot = X_{2}$
+
+* $X_{2}\cdot = -a_{0}X_{1} -a_{1}X_{2} +bu +w$
+
+* $y=X_{1}$
+
+En base a la identificación del sistema suponemos que la función del sistema esta dado por la ecuación:
+
+* $f= -a_{0}X_{1} -a_{1}X_{2} +(b-b_{0})u +w$
+
+Sustituyendo la función del sistema en espacio de estados obtendremos el siguiente parámetro:
+
+* $X_{1}\cdot = X_{2}$
+
+* $X_{2}\cdot = f +b_{0}u$
+
+* $y=X_{1}$
+
+Al obtener el sistema en espacio de estados se obtiene que F es la variable desconocida y se le asigna un estado:
+
+* $X_{1}\cdot = X_{2}$
+
+* $X_{2}\cdot = X_{3} +b_{0}u$
+
+* $X_{3}\cdot = h$
+
+* $y=X_{1}$
 
 **Torque Reflejado:** Es el torque que el motor debe generar para mover la carga a través de la transmisión. Se obtiene transformando el torque de la carga $T_{L}$ a la referencia del motor:
 
