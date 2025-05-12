@@ -1,33 +1,33 @@
 # Apuntes_Semana Doce
-Apuntes control de movimiento - Segundo Corte - Novena Semana
+Apuntes control de movimiento - Tercer Corte - Doceava Semana
 
-# Control de Movimiento (Diseño de Transmisión)
+# Control de Movimiento (Rechazo Activo a Perturbaciones)
 
-**Introducción al Diseño de Transmisión**
+**Introducción al Rechazo Activo de Perturbaciones**
 
-El diseño de transmisión se encarga de transferir potencia y movimiento entre componentes mecánicos, utilizando elementos como engranajes, correas y cadenas. Su objetivo es garantizar eficiencia, durabilidad y seguridad en sistemas como vehículos, maquinaria y robótica. Un diseño adecuado optimiza el rendimiento, reduce el desgaste y mejora la eficiencia energética, combinando principios de cinemática, dinámica y resistencia de materiales.
+En los sistemas de control, uno de los principales desafíos es mantener el desempeño deseado ante la presencia de perturbaciones externas o internas que pueden afectar negativamente el comportamiento del sistema. El rechazo de perturbaciones es, por tanto, un aspecto fundamental para garantizar la estabilidad, precisión y robustez del control.
 
-## 1. Requerimientos de diseño
+Tradicionalmente, los controladores PID han sido ampliamente utilizados debido a su simplicidad y efectividad en una gran variedad de aplicaciones. Sin embargo, su rendimiento puede verse comprometido cuando el sistema se enfrenta a perturbaciones no modeladas o cuando el modelo de la planta no está bien definido. En este contexto, surge el Control por Rechazo Activo de Perturbaciones (ADRC, por sus siglas en inglés: Active Disturbance Rejection Control) como una alternativa poderosa al PID.
 
-Para que el diseño en control de movimiento no tenga ningún inconveniente se requiere una excelente selección de un motor y la transmisión del sistema para que el movimiento sea llevado a cabo en la carga o una herramienta. Para este diseño se deben tener en cuenta los siguientes indicadores:
+El ADRC propone una estrategia innovadora basada en la estimación activa de perturbaciones para luego rechazarlas en tiempo real, minimizando su impacto en el sistema. Esta técnica reduce significativamente la dependencia de un modelo preciso de la planta y compensa de manera efectiva las debilidades de los controladores convencionales, mejorando así la robustez del sistema frente a incertidumbres y variaciones externas.
 
-* Garantizar que el torque del motor a su máxima velocidad sea suficiente para la aplicación, considerando un margen de seguridad.
+## 1. ADCR
 
-* Verificar que la relación de inercia entre el motor y la carga sea la adecuada para un desempeño óptimo.
+Durante el proceso de desistimar las pertubaciones, el sistema utiliza una ley de control, la cual indica el resultado de realizar la estimación de una función no lineal del error utilizando un observador de estados extendido no lineal.
 
-* Asegurar que el diseño cumpla con criterios adicionales como costo, precisión y tiempos de ciclo, según los requisitos del sistema.
+El uso de este observador de estados nos permite estimar las dinámicas desconocidas del sistema como las pertubaciones que afectarán la entrada en el proceso de funcionamiento. La ventaja de este sistema sobre otros es que se puede controlar sistemas de distinta naturaleza y complejidad sin necesidad de tener un modelo preciso previamente definido.
 
-Existen diferentes tipos de problemas que nos enfrentamos al momento de diseñar en el cual se especifíca que es lo que se debe solucionar:
+Durante el año 2014 Gao destaca 3 características sobre el funcionamiento ADRC:
 
-* Teniendo el Movimiento de carga deseado	se busca -> dimensionar la Transmisión y motor.
+* No es indispensable contar con un modelo detallado del proceso que se desea controlar. Al principio, basta con conocer el orden del sistema y una estimación del valor de su ganancia. Esta ganancia se refiere al parámetro que define la proporción entre la señal de control aplicada y la derivada de orden n de la salida del sistema.
 
-* Teniendo el Motor y transmisión existentes	se busca -> dimensionar el Movimiento de carga resultante.
+* El control por rechazo activo de perturbaciones (ADRC) se basa en la estimación de una señal que representa tanto las incertidumbres del modelo como las perturbaciones externas. Aunque en teoría de control estos conceptos suelen tratarse por separado, el ADRC los unifica bajo el término de perturbación total. Esta perturbación total es observada en tiempo real y contrarrestada mediante la acción de control, evitando así que su efecto se refleje en la salida del sistema y mejorando significativamente la robustez frente a variaciones y factores no modelados.
 
-* Teniendo el Motor existente, movimiento de carga deseado se busca -> dimensionar la Transmisión.
+* El ADRC busca que el sistema real se comporte de forma similar a una planta nominal, lo cual simplifica el diseño del controlador y permite lograr un desempeño deseado sin depender de un modelo preciso.
 
-* Teniendo el Movimiento de carga deseado, transmisión se busca-> dimensionar el Motor.
+## 2. Componentes de un ADRC
 
-## 2. Inercia y Torque Reflejado
+
 
 **Inercia Reflejada**: Es la inercia equivalente que el motor "siente" debido a la carga y los elementos de transmisión. Se calcula ajustando la inercia de la carga $J_{L}$ a la referencia del motor mediante la relación de transmisión (N):
 
