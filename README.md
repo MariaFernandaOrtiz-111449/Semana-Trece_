@@ -40,7 +40,7 @@ Para que el sistema funcione de una manera eficiente debe contener ciertos compo
 *Imagen 1. Compontentes ADRC*
 
 
-**Rechazo Activo a Perturbaciones Sistema No lineal**
+## 3. Rechazo Activo a Perturbaciones Sistema No lineal
 
 En el control de sistemas no lineales, uno de los mayores desafíos es lidiar con la complejidad del modelo y la presencia de perturbaciones externas o dinámicas internas no modeladas. A diferencia de los sistemas lineales, donde existen métodos bien establecidos para el diseño de controladores, los sistemas no lineales requieren enfoques más flexibles y robustos.
 
@@ -91,7 +91,7 @@ Una vez que se realiza el proceso en el espacio de estados, obtenemos la funció
 * $y = X_{1}$
 
 
-## 3. Funciones para la Acción de Control en el Caso No Lineal
+### 3.1. Funciones para la Acción de Control en el Caso No Lineal
 
 En el control ADRC aplicado a sistemas no lineales, la acción de control se diseña utilizando funciones no lineales que mejoran la robustez y la capacidad de rechazo de perturbaciones. Entre estas funciones destaca la función de no linealidad tipo fal (del inglés function approaching linearity), la cual suaviza el comportamiento del controlador cerca del origen y actúa como ganancia variable, adaptándose a la magnitud del error.
 
@@ -99,90 +99,79 @@ Estas funciones permiten construir controladores y observadores que no requieren
 
 * $u_{0} = k_{1}fal(r_{1} - z_{1}, \alpha _{1}, \delta) + k_{2}fal((r_{1}\cdot - z_{2}, \alpha_{2}, \delta)$
 
- ![]()
+ ![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/1e6c3b7e38f53f7b419dafaf953ef878992d0e2b/Ecuaciones.png)
 
-### 3.1. Eficiencia
+ *Imagen 3. Ecuaciones parámetros ganancias del controlador*
 
-La eficiencia en el control de movimiento se refiere a la capacidad de un sistema para transformar la energía en movimiento preciso y efectivo, minimizando pérdidas y optimizando el desempeño.
+## 4.  Rechazo Activo a Perturbaciones Sistema Lineal
 
-**Factores Clave en la Eficiencia**
+SPara el sistema lineal se realiza un observador de estados en un sistema lineal extendido.
 
-*Transmisión de Energía*
+![image](https://github.com/user-attachments/assets/8d6663fa-e6c6-43e9-888f-4816edf05068)
 
-* Usar mecanismos de transmisión eficientes, como engranajes de alta precisión o correas síncronas con baja fricción.
+*Imagen 4. Sistema lineal Principal y extendido*
 
-* Minimizar pérdidas por rozamiento y holguras en acoplamientos mecánicos.
+En base al sistema definido previamente mediante el observador de estados, se halla la acción de control necesaria que está delimitada por la siguiente ecuación: 
 
-*Control del Torque y la Velocidad*
+$U_{0} = k_{1}(r\sim - z_{1})-k_{2}z_{2}$
 
-* Implementar controladores PID o algoritmos avanzados para ajustar dinámicamente el torque y la velocidad.
+En sistemas lineales, el Rechazo Activo de Perturbaciones (ADRC) ofrece una alternativa eficaz a los controladores clásicos como el PID, al no depender de un modelo matemático preciso. En este enfoque, se considera una planta lineal simple, y cualquier dinámica no modelada, incertidumbre o perturbación externa se agrupa como perturbación total, la cual es estimada en tiempo real mediante un observador extendido (ESO).
 
-* Asegurar una relación de inercia adecuada entre el motor y la carga para mejorar la respuesta del sistema.
+Una vez estimada, esta perturbación se compensa activamente con la acción de control, logrando un comportamiento deseado del sistema. En el caso lineal, el diseño del ADRC es más sencillo y directo, lo que lo convierte en una opción atractiva para aplicaciones prácticas donde se busca simplicidad, robustez y buen desempeño dinámico.
 
-*Reducción de Pérdidas Energéticas*
+## 5. Observador de estados ADRC
 
-* Seleccionar motores y accionamientos con alta eficiencia.
+El observador extendido de estados (ESO) es una parte fundamental del Rechazo Activo de Perturbaciones (ADRC). Su función principal es estimar no solo los estados internos del sistema, sino también una señal adicional que representa la perturbación total, es decir, la combinación de dinámicas no modeladas, incertidumbres del sistema y perturbaciones externas.
 
-* Evitar sobrecargas y diseñar el sistema para operar dentro del rango óptimo de eficiencia del motor.
+Este observador se actualiza en tiempo real y permite que el controlador reaccione rápidamente a cualquier cambio inesperado, rechazando activamente las perturbaciones sin requerir un modelo preciso de la planta. Gracias a esta estimación, el controlador puede compensar los efectos negativos y forzar al sistema a seguir el comportamiento deseado, incluso bajo condiciones adversas.
 
-*Optimización del Perfil de Movimiento*
+Para un sistema discreto con perturbaciones el diseño de la estimación de parámetros estaría dado por: 
 
-* Usar aceleraciones y desaceleraciones suaves para evitar picos de corriente y desgaste mecánico.
+* $X_{k+1} = A * X_{k} + B * u_{k} + F * d_{k}$
 
-* Aplicar técnicas como interpolación y control de trayectoria para mejorar la precisión y reducir vibraciones.
+* $y_{k} = C * X_{k}$
 
-*Selección de Sensores y Realimentación*
+Si durante el proceso de funcionamiento del sistema, vemos que la perturbación es constante $d(k+1) = d(k)$, se añade como variable de estado.
 
-* Implementar sensores de alta resolución para mejorar la precisión y estabilidad del control.
+![image](https://github.com/user-attachments/assets/86410201-64f7-4431-8e85-f099ae02327e)
 
-* Utilizar sistemas de retroalimentación en tiempo real para corregir desviaciones y mejorar la eficiencia del sistema.
-  
-### 3.2. Inercia Total
+*Imagen 5. Matriz Observador de Estados*
 
-Es la suma de todas las inercias reflejadas al eje del motor. Incluye la inercia del propio motor, la inercia de la carga y la de los elementos de transmisión, ajustadas según la relación de transmisión. Se expresa mediante la fórmula general:
+Una vez se tenga el diseño del sistema con las perturbaciones añadidas, se puede diseñar el obseradoir de estados compensanndo el efecto de la salida mediante una pre-alimentación del sistema.
 
-$$J{total} = J{motor} + J{transmisión} + J{carga} {reflejada}$$
+![image](https://github.com/user-attachments/assets/5cb72645-a5d9-40a1-b23d-5ebafd66ff57)
 
-Donde:
+*Imagen 6. Observador de estados con Perturbaciones*
 
-* $J{motor}$: Es la inercia del rotor del motor.
+Una vez obtenido la representación de espacio de estados mediante una matriz, se construye el observador de Luenberger.
 
-* $J{transmision}$: Es la inercia de engranajes, poleas, correas, etc.
+## 6. Observador de Luenberger
 
-*$J{carga reflejada}$: ​Es la inercia de la carga ajustada a la referencia del motor, calculada como:
+El Observador de Luenberger es una herramienta utilizada en sistemas lineales para estimar los estados internos de un sistema dinámico cuando no todos pueden ser medidos directamente. Se basa en un modelo matemático del sistema y en la retroalimentación del error entre la salida real y la estimada, ajustando así las estimaciones de los estados.
 
-$$J{carga}{reflejada} : J{carga} * N^{2}$$
+Su estructura combina el modelo del sistema con una ganancia de observación que permite corregir las estimaciones en función de la diferencia entre la salida medida y la estimada. Este observador es ampliamente utilizado en control clásico y moderno por su simplicidad, efectividad y bajo costo computacional.
 
-Donde N está dado por la relación de transmisión.
+En el diseño de este observador, se tiene el coeficinete $X^{\bigtriangleup \cdot }$ el cual es el vector asociado a los coeficientes que determinarán el polinomio de hurwitz asociado a la dinámica del error de estimación $e_{y} \sim$ definido como $e_{y} \sim = y- y^{\bigtriangleup }$
 
-$N: \frac{W_{motor}}{W_{carga}}$
+![image](https://github.com/user-attachments/assets/9310ba09-f977-4e47-9479-74be49fb3936)
 
-**Importancia del Cálculo de la Inercia Total**
-* *Afecta la respuesta dinámica: Una inercia elevada requiere mayor torque para acelerar y desacelerar.*
-* *Influye en la selección del motor: Un desbalance entre la inercia del motor y la carga puede afectar la estabilidad y eficiencia del sistema.*
-* *Optimiza el control de movimiento: Una inercia total bien calculada permite un control más preciso y eficiente del sistema.*
-  
-### 3.3. Relación de Inercia
+*Imagen 7.Observador de Luenberger*
 
-Es un parámetro clave en el diseño de sistemas de control de movimiento, ya que indica el equilibrio dinámico entre el motor y la carga. Se define como la razón entre la inercia reflejada de la carga y la inercia del rotor del motor
+Al restar las ecuaciones del sistema real y del observador, se obtiene una ecuación que describe la dinámica del error de estimación. Esta dinámica está gobernada por una matriz, conocida como matriz del error, cuya estructura determina la estabilidad del observador. A partir de esta matriz, se puede obtener el polinomio característico, el cual permite analizar y ubicar los polos del observador para garantizar una convergencia rápida y estable del error hacia cero.
 
-Relación de Inercia: $$\frac{J{carga} {reflejada}}{J_{motor}}$$
+![image](https://github.com/user-attachments/assets/023ab6a0-9c54-4ee6-b0a8-a46de6657d08)
 
-**Donde:**
-* $J{carga} {reflejada}: J_{carga} * N^{2}$ (si hay una transmisión con relación N)
-* $J_{motor}$ es la inercia del motor
+*Imagen 8. Ecuaciones dinámica el error*
 
-**Práctica de la relación de Inercia**
+Los coeficientes 𝜆𝜉 se eligen de manera que el polinomio característico de la dinámica del error de estimación tenga raíces en el semiplano izquierdo del plano complejo. Esto asegura que el sistema sea estable, cumpliendo con la condición de ser un polinomio de Hurwitz, lo cual garantiza que el error de estimación tienda a cero con el tiempo.
 
-En la práctica, la relación de inercia entre la carga y el motor es un aspecto clave para lograr un sistema de movimiento eficiente y confiable. Esta relación influye directamente en el comportamiento dinámico del sistema, así como en la selección del motor y la transmisión. Dependiendo del tipo de aplicación y sus exigencias, se pueden presentar distintos escenarios que vale la pena considerar:
+Donde 𝜀 representa la estimación de la perturbación generalizada, la cual se obtiene mediante un observador de estados. Se asume que esta perturbación puede ser aproximada por un polinomio en función del tiempo, lo que permite incluirla dentro del modelo del observador y estimarla junto con los estados del sistema.
 
-* *Relación de inercia baja (rango de 1 a 2)*: Es adecuada para aplicaciones que requieren movimientos rápidos, con frecuentes arranques y paradas. No obstante, puede implicar el uso de un motor sobredimensionado, lo cual aumenta los costos y reduce la eficiencia energética.
+![image](https://github.com/user-attachments/assets/6637f441-68eb-4822-a0cf-141b4ec3b3e8)
 
-* *Relación de inercia alta (mayor a 10):* Se emplea en situaciones donde no se necesita una alta dinámica, como en movimientos lentos o constantes. Aunque puede reducir el tamaño del motor, también conlleva riesgos como una baja eficiencia del sistema o torque insuficiente para cumplir con la tarea.
+*Imagen 9. Polinomio en función del tiempo*
 
-Por ello, elegir correctamente la relación de inercia según la aplicación es esencial para optimizar el rendimiento y evitar problemas en el diseño de sistemas de control de movimiento.
-Un sensores un dispositivo que detecta cambios en una magnitud física o química, como temperatura, presión o luz, y los convierte en señales eléctricas para su procesamiento. Se usa en diversos sistemas para monitoreo y automatización.
-
+Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y considerando r(t) como el residuo entre la salida real y estimada, es posible diseñar un observador extendido que no solo estime las derivadas de la salida, sino también la perturbación generalizada y sus derivadas. Este enfoque permite capturar dinámicamente el efecto de perturbaciones e incertidumbres, facilitando su rechazo activo mediante la acción de control.
 
 ## 4. Concepto Transmisión Polea-Correa
 
