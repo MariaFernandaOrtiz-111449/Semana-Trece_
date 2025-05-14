@@ -1,16 +1,6 @@
 ## Sistema de Estado Extendido
 
-$$\begin{bmatrix} 
-\hat{x}_1 \\
-\hat{x}_2 \\
-\vdots \\
-\hat{x}_n \\
-\hat{\xi} \\
-\hat{\xi}^{(1)} \\
-\vdots \\
-\hat{\xi}^{(m-1)}
-\end{bmatrix}
-=
+$$\begin{bmatrix} \hat{x}_1 \\ \hat{x}_2 \\ \vdots \\ \hat{x}_n \\ \hat{\xi} \\ \hat{\xi}^{(1)} \\ \vdots \\ \hat{\xi}^{(m-1)} \end{bmatrix} =
 \underbrace{
 \begin{bmatrix}
 0_{n+m \times 1} & I_{n+m-1 \times n+m-1} \\
