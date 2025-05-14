@@ -1,5 +1,4 @@
-$$
-\begin{bmatrix} 
+$$\begin{bmatrix} 
 \hat{x}_1 \\ 
 \hat{x}_2 \\ 
 \vdots \\ 
@@ -52,8 +51,7 @@ u
 \lambda_0 
 \end{bmatrix}
 }_{\lambda_\xi} 
-\tilde{e}_y(t)
-$$
+\tilde{e}_y(t)$$
 
 $$
 \hat{y} = 
