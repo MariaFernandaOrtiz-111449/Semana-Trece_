@@ -1,27 +1,66 @@
-## Sistema de estado extendido
-
-
-
 # Apuntes_Semana Doce
 Apuntes control de movimiento - Tercer Corte - Doceava Semana
+Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Felipe Arteaga Escalante
 
-# Control de Movimiento (Rechazo Activo a Perturbaciones)
-
-**Introducción al Rechazo Activo de Perturbaciones**
+# Indice
 
 
+
+# 1. Control de Movimiento (Rechazo Activo a Perturbaciones)
+
+**1.1 Introducción al Rechazo Activo de Perturbaciones**
 
 En los sistemas de control, uno de los principales desafíos es mantener el desempeño deseado ante la presencia de perturbaciones externas o internas que pueden afectar negativamente el comportamiento del sistema. El rechazo de perturbaciones es, por tanto, un aspecto fundamental para garantizar la estabilidad, precisión y robustez del control.
+
+💡Ejemplo 1: Control de temperatura de un horno
+
+Situación: De repente, alguien abre la puerta del horno y entra aire frío, causando una perturbación que reduce la temperatura interna.
+
+Solución: El controlador PID detecta la caída de temperatura, aumenta la potencia del calefactor para compensar el enfriamiento y luego la reduce gradualmente al recuperar los 200 °C, manteniendo así la estabilidad y precisión del sistema.
+
+![image](https://github.com/user-attachments/assets/787c9709-0829-49e7-bf8a-8bae20653be9)
+
+Imagen 1. Ejemplo 1
 
 Tradicionalmente, los controladores PID han sido ampliamente utilizados debido a su simplicidad y efectividad en una gran variedad de aplicaciones. Sin embargo, su rendimiento puede verse comprometido cuando el sistema se enfrenta a perturbaciones no modeladas o cuando el modelo de la planta no está bien definido. En este contexto, surge el Control por Rechazo Activo de Perturbaciones (ADRC, por sus siglas en inglés: Active Disturbance Rejection Control) como una alternativa poderosa al PID.
 
 El ADRC propone una estrategia innovadora basada en la estimación activa de perturbaciones para luego rechazarlas en tiempo real, minimizando su impacto en el sistema. Esta técnica reduce significativamente la dependencia de un modelo preciso de la planta y compensa de manera efectiva las debilidades de los controladores convencionales, mejorando así la robustez del sistema frente a incertidumbres y variaciones externas.
 
-## 1. ADCR
+💡Ejemplo 2: Plataforma de estabilización de cámara en un dron
+
+Situación: Un dron en vuelo debe mantener su cámara estable frente a vibraciones del motor, ráfagas de viento o movimientos bruscos. Estas perturbaciones son difíciles de modelar con precisión.
+
+🚫 Limitación del PID: El controlador PID puede no reaccionar a tiempo o sobreactuar ante estas perturbaciones rápidas, ya que no conoce ni anticipa la fuente del error.
+
+✅ Ventaja del ADRC: El ADRC estima activamente las perturbaciones (vibraciones, viento) en tiempo real y ajusta el control para contrarrestarlas, manteniendo la cámara estable sin necesidad de un modelo exacto del dron o su entorno.
+
+![image](https://github.com/user-attachments/assets/19b97883-db93-4c8f-9f4d-22683170f575)
+
+Imagen 2. Ejemplo 2
+
+## 2. Conceptos Básicos
+
+* Perturbaciones y modelo: ADRC funciona bien incluso si el modelo del sistema es inexacto y hay perturbaciones desconocidas.
+
+* Estado extendido: Incluye las perturbaciones como parte del sistema para poder observarlas y controlarlas.
+
+* ESO (Observador de Estado Extendido): Estima en tiempo real los estados del sistema y las perturbaciones que lo afectan.
+
+* Ley de control: Usa las estimaciones del ESO para corregir el sistema y rechazar perturbaciones activamente.
+
+* Robustez y simplicidad: Es robusto frente a incertidumbre y fácil de ajustar con pocos parámetros.
+
+## 3. ADCR
 
 Durante el proceso de desistimar las pertubaciones, el sistema utiliza una ley de control, la cual indica el resultado de realizar la estimación de una función no lineal del error utilizando un observador de estados extendido no lineal.
 
+![image](https://github.com/user-attachments/assets/88a979db-32cf-43d3-ac1e-59860ff5c885)
+
+Imagen 3. Modelo del sistema.
+
 El uso de este observador de estados nos permite estimar las dinámicas desconocidas del sistema como las pertubaciones que afectarán la entrada en el proceso de funcionamiento. La ventaja de este sistema sobre otros es que se puede controlar sistemas de distinta naturaleza y complejidad sin necesidad de tener un modelo preciso previamente definido.
+
+
 
 Durante el año 2014 Gao destaca 3 características sobre el funcionamiento ADRC:
 
