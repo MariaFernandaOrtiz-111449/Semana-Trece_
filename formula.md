@@ -1,7 +1,6 @@
 ## Sistema de Estado Extendido
 
-$$
-\begin{bmatrix}
+$$\begin{bmatrix} 
 \hat{x}_1 \\
 \hat{x}_2 \\
 \vdots \\
@@ -52,11 +51,6 @@ $$
 \vdots \\
 \lambda_0
 \end{bmatrix}
-}_{\lambda_{\xi}} \tilde{e}_y(t)
-$$
+}_{\lambda_{\xi}} \tilde{e}_y(t)$$
 
-$$
-\hat{y} =
-\underbrace{[1 \quad 0 \quad 0 \quad \dots \quad 0]}_{C_{\xi}}
-\hat{x}_{\xi}
-$$
+$$\hat{y} = \underbrace{[1 \quad 0 \quad 0 \quad \dots \quad 0]}_{C_{\xi}} \hat{x}_{\xi}$$
