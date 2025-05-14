@@ -1,62 +1,21 @@
-$$\begin{bmatrix} 
-\hat{x}_1 \\ 
-\hat{x}_2 \\ 
-\vdots \\ 
-\hat{x}_n \\ 
-\hat{\xi} \\ 
-\hat{\xi}^{(1)} \\ 
-\vdots \\ 
-\hat{\xi}^{(m-1)} 
-\end{bmatrix} 
-= 
-\underbrace{
-\begin{bmatrix} 
-0_{n+m \times 1} & I_{n+m-1 \times n+m-1} \\ 
-0 & 0_{1 \times n+m-1} 
-\end{bmatrix}
-}_{A_\xi} 
-\begin{bmatrix} 
-\hat{x}_1 \\ 
-\hat{x}_2 \\ 
-\vdots \\ 
-\hat{x}_n \\ 
-\hat{\xi} \\ 
-\hat{\xi}^{(1)} \\ 
-\vdots \\ 
-\hat{\xi}^{(m-1)} 
-\end{bmatrix} 
-+ 
-\underbrace{
-\begin{bmatrix} 
-0 \\ 
-0 \\ 
-\vdots \\ 
-1 \\ 
-0 \\ 
-\vdots \\ 
-0 
-\end{bmatrix}
-}_{B_\xi} 
-u 
-+ 
-\underbrace{
-\begin{bmatrix} 
-\lambda_{n+m-1} \\ 
-\lambda_{n+m-2} \\ 
-\vdots \\ 
-\lambda_{m+1} \\ 
-\lambda_m \\ 
-\lambda_{m-1} \\ 
-\vdots \\ 
-\lambda_0 
-\end{bmatrix}
-}_{\lambda_\xi} 
-\tilde{e}_y(t)$$
+ESTRUCTURA DEL OBSERVADOR (Forma matricial)
+─────────────────────────────────────────────────────────────────────────
 
-$$
-\hat{y} = 
-\begin{bmatrix} 
-1 & 0 & 0 & \cdots & 0 
-\end{bmatrix} 
-\hat{x}_\xi
-$$
+┌                ┐   ┌─────────────────────────────────┐┌                ┐   ┌     ┐        ┌                ┐
+│     x̂₁        │   │                                 ││     x̂₁        │   │  0  │        │   λ_{n+m-1}   │
+│     x̂₂        │   │       MATRIZ A_ξ (n+m)×(n+m)    ││     x̂₂        │   │  0  │        │   λ_{n+m-2}   │
+│     ⋮         │   │                                 ││     ⋮         │   │  ⋮  │        │      ⋮        │
+│     x̂ₙ        │ = │  [ 0_{n+m×1} | I_{n+m-1}      ] ││     x̂ₙ        │ + │  1  │ u(t) + │   λ_{m+1}     │
+│     ξ̂         │   │  [ ----------+-------------    ] ││     ξ̂         │   │  0  │        │     λ_m       │
+│     ξ̂⁽¹⁾      │   │  [ 0_{1×1}   | 0_{1×n+m-1}    ] ││     ξ̂⁽¹⁾      │   │  ⋮  │        │     λ_{m-1}   │
+│     ⋮         │   │                                 ││     ⋮         │   │  0  │        │      ⋮        │
+│     ξ̂⁽ᵐ⁻¹⁾    │   └─────────────────────────────────┘│     ξ̂⁽ᵐ⁻¹⁾    │   └     ┘        │     λ₀        │
+└                ┘                                     └                ┘                 └                ┘
+                                      ▲                         ▲                ▲
+                                      │                         │                │
+                                      │                         │                │
+                    ┌─────────────────┘       ┌─────────────────┘    ┌───────────┘
+                    │                         │                       │
+                    │  MATRIZ DE DINÁMICA    │  VECTOR DE ENTRADA   │  VECTOR DE
+                    │  (Sistema aumentado)   │  (Posición m+1)      │  GANANCIAS
+                                               (Solo afecta a x̂ₙ)
