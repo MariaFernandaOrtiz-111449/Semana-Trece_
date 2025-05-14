@@ -181,7 +181,7 @@ Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y cons
 
 ## 7. Conclusiones
 
-$$\begin{bmatrix}
+$\begin{bmatrix}
 \hat{x}_1 \\
 \hat{x}_2 \\
 \vdots \\
@@ -190,7 +190,7 @@ $$\begin{bmatrix}
 \hat{\xi}^{(1)} \\
 \vdots \\
 \hat{\xi}^{(m-1)}
-\end{bmatrix}
+\end{bmatrix}$
 =
 \underbrace{
 \begin{bmatrix}
