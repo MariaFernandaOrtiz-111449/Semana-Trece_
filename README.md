@@ -1,5 +1,5 @@
-# Apuntes_Semana Doce
-Apuntes control de movimiento - Tercer Corte - Doceava Semana
+# Apuntes_Semana Trece
+Apuntes control de movimiento - Tercer Corte - Treceava Semana
 Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Felipe Arteaga Escalante
 
 # Indice
@@ -61,7 +61,6 @@ Imagen 3. Modelo del sistema.
 El uso de este observador de estados nos permite estimar las dinámicas desconocidas del sistema como las pertubaciones que afectarán la entrada en el proceso de funcionamiento. La ventaja de este sistema sobre otros es que se puede controlar sistemas de distinta naturaleza y complejidad sin necesidad de tener un modelo preciso previamente definido.
 
 
-
 Durante el año 2014 Gao destaca 3 características sobre el funcionamiento ADRC:
 
 * No es indispensable contar con un modelo detallado del proceso que se desea controlar. Al principio, basta con conocer el orden del sistema y una estimación del valor de su ganancia. Esta ganancia se refiere al parámetro que define la proporción entre la señal de control aplicada y la derivada de orden n de la salida del sistema.
@@ -70,7 +69,7 @@ Durante el año 2014 Gao destaca 3 características sobre el funcionamiento ADRC
 
 * El ADRC busca que el sistema real se comporte de forma similar a una planta nominal, lo cual simplifica el diseño del controlador y permite lograr un desempeño deseado sin depender de un modelo preciso.
 
-## 2. Componentes de un ADRC
+## 4. Componentes de un ADRC
 
 Para que el sistema funcione de una manera eficiente debe contener ciertos componentes  programables para la identificación del sistema y parámetros del mismo.
 
@@ -82,16 +81,64 @@ Para que el sistema funcione de una manera eficiente debe contener ciertos compo
 
 ![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/03f9ebe2b21b3c40e13901f090c58441aeba6d6b/Componentes%20ADRC.png)
 
-*Imagen 1. Compontentes ADRC*
+*Imagen 4. Compontentes ADRC*
+
+💡Ejemplo 3: Control de Posición de un Motor DC
+
+### Sistema:
+* Planta: Motor DC con fricción y carga variable.
+
+* Objetivo: Controlar la posición angular del eje.
+
+### Implementación ADRC:
+* TD: Suaviza la señal de referencia angular $\theta _{ref}$ y obtiene su derivada (velocidad deseada).
+
+* ESO: Estima la velocidad real del motor y la perturbación total (fricción + carga variable).
+
+* NLSEF: Calcula la corriente de control al motor compensando el error de posición y perturbaciones estimadas.
+
+🧠 Resultado: El motor sigue la referencia sin importar los cambios de carga o fricción.
+
+![image](https://github.com/user-attachments/assets/d03b18c7-0740-4f63-afa7-79e6e58ffb64)
+
+*Imagen 5. Control de Posición de un Motor DC*
 
 
-## 3. Rechazo Activo a Perturbaciones Sistema No lineal
+💡Ejemplo 4: Plataforma Inclinable (Gimbal)
+
+### Sistema:
+
+* Planta: Plataforma 2DOF para mantener una cámara estable.
+
+* Objetivo: Controlar el ángulo en pitch y roll frente a perturbaciones (movimiento del dron, viento).
+
+### Implementación ADRC:
+
+* TD: Suaviza los ángulos deseados para la cámara.
+
+* ESO: Estima los ángulos actuales y perturbaciones (movimiento externo, vibración).
+
+* NLSEF: Genera señales PWM para los servos que corrigen la posición.
+
+🧠 Resultado: La cámara se mantiene estable a pesar de los movimientos del dron.
+
+![image](https://github.com/user-attachments/assets/77dfb797-d3fe-49a1-8488-04bf3545fb03)
+
+*Imagen 6. Plataforma Inclinable*
+
+## 5. Rechazo Activo a Perturbaciones Sistema No lineal
 
 En el control de sistemas no lineales, uno de los mayores desafíos es lidiar con la complejidad del modelo y la presencia de perturbaciones externas o dinámicas internas no modeladas. A diferencia de los sistemas lineales, donde existen métodos bien establecidos para el diseño de controladores, los sistemas no lineales requieren enfoques más flexibles y robustos.
 
 En este contexto, el Rechazo Activo de Perturbaciones (ADRC) surge como una alternativa eficaz que no depende de un modelo matemático exacto del sistema. En lugar de eso, el ADRC se enfoca en estimar y compensar en tiempo real una señal denominada perturbación total, que engloba tanto incertidumbres internas como perturbaciones externas. Esto permite que el sistema real se comporte como una planta nominal más sencilla, facilitando así el diseño del controlador, incluso en presencia de no linealidades.
 
-$ÿ = -a_{1}y\cdot --a_{0} + bu$
+![image](https://github.com/user-attachments/assets/bcc5cacd-f495-4a07-9a5e-2c55b2482d7f)
+
+*Imagen 7. Rechazo de perturbaciones internas y externas mediante ADRC*
+
+A continuación realizaremos la identificación de parámetros en base al análisis de ecuaciones dieferenciales del sistema como se observa a continuación:
+
+$ÿ = -a_{1}y\cdot -a_{0}y + bu$
 
 La identificación del sistema en espacio de estados estaría dado de la siguiente manera:
 
@@ -125,7 +172,21 @@ Al obtener el sistema en espacio de estados se obtiene que F es la variable desc
 
 ![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/36e779fc961ac85343fa1080678cede0f9b1ab02/Observador%20de%20estados%20extendido.png)
 
-*Imagen 2. Observador de estados extendido para NADRC*
+*Imagen 8. Observador de estados extendido para NADRC*
+
+El sistema en lazo extendido nos dará los parámetros en el espacio Z aplicando la transformada Z, como resultado se obtienen las siguientes fórmulas:
+
+* $Z_{1}\cdot  = Z_{2} -\beta _{1}\gamma _{1}(\epsilon)$
+
+* $Z_{2}\cdot = Z_{3} + b_{0}u - \beta _{2}\gamma _{2}(\epsilon)$
+
+* $Z_{3}\cdot = - \beta _{3}\gamma _{3}(\epsilon)$
+
+* $\epsilon = Z_{1} - y$
+
+Los parámetros de u están dados por la siguiente ecuación:
+
+$U = \frac{u_{0} - Z_{3}}{b_{0}}$
 
 Una vez que se realiza el proceso en el espacio de estados, obtenemos la función del sistema controlado y libre de perturbaciones con un comportamiento integrador.
 
@@ -142,11 +203,17 @@ En el control ADRC aplicado a sistemas no lineales, la acción de control se dis
 
 Estas funciones permiten construir controladores y observadores que no requieren la linealización del sistema, haciendo posible una respuesta eficiente y estable incluso en presencia de fuertes no linealidades o perturbaciones no modeladas.
 
-* $u_{0} = k_{1}fal(r_{1} - z_{1}, \alpha _{1}, \delta) + k_{2}fal((r_{1}\cdot - z_{2}, \alpha_{2}, \delta)$
+* $u_{0} = k_{1} fal(r_{1} - z_{1}, \alpha _{1}, \delta) + k_{2}fal((r_{1}\cdot - z_{2}, \alpha_{2}, \delta)$
 
- ![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/1e6c3b7e38f53f7b419dafaf953ef878992d0e2b/Ecuaciones.png)
+Para hallar los parámetros de ganancias del sistema del observador y del controlador se debe tener encuenta los siguientes casos en base a la función $fal(e^{\sim }, \vartheta _{i}, \delta)$:
 
- *Imagen 3. Ecuaciones parámetros ganancias del controlador*
+**Caso 1**
+
+* $\frac{e^{\sim }}{\delta ^{1} -\vartheta _{i}}$  ,   $|X|\leq \delta$
+
+**Caso 2**
+
+* 
 
 ## 4.  Rechazo Activo a Perturbaciones Sistema Lineal
 
