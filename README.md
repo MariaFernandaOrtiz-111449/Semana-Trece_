@@ -1,5 +1,6 @@
 # Apuntes_Semana Trece
 Apuntes control de movimiento - Tercer Corte - Treceava Semana
+
 Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Felipe Arteaga Escalante
 
 # Indice
