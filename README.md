@@ -203,7 +203,9 @@ En el control ADRC aplicado a sistemas no lineales, la acción de control se dis
 
 Estas funciones permiten construir controladores y observadores que no requieren la linealización del sistema, haciendo posible una respuesta eficiente y estable incluso en presencia de fuertes no linealidades o perturbaciones no modeladas.
 
-* $u_{0} = k_{1} fal(r_{1} - z_{1}, \alpha _{1}, \delta) + k_{2}fal((r_{1}\cdot - z_{2}, \alpha_{2}, \delta)$
+* $u_{0} = k_{1}fal(r_{1}-Z_{1}, \vartheta _{1}, \delta)$
+
+  $+k_{2}fal(r_{1} \cdot - Z_{2}, \vartheta _{2}, \delta)$
 
 Para hallar los parámetros de ganancias del sistema del observador y del controlador se debe tener encuenta los siguientes casos en base a la función $fal(e^{\sim }, \vartheta _{i}, \delta)$:
 
@@ -213,21 +215,39 @@ Para hallar los parámetros de ganancias del sistema del observador y del contro
 
 **Caso 2**
 
-* 
+* $|e^{\sim }| sign(e^{\sim }),   |X|>\delta$
 
 ## 4.  Rechazo Activo a Perturbaciones Sistema Lineal
 
-SPara el sistema lineal se realiza un observador de estados en un sistema lineal extendido.
+Para el sistema lineal se realiza un observador de estados para la función aplicando transformada Z:
 
-![image](https://github.com/user-attachments/assets/8d6663fa-e6c6-43e9-888f-4816edf05068)
+* $Z_{1} \cdot = Z_{2} + L_{1}e$
 
-*Imagen 4. Sistema lineal Principal y extendido*
+* $Z_{2} \cdot = Z_{3} + b_{0}u + L_{2}e$
+
+* $Z_{3} \cdot = L_{3}e$
+
+* $e= y - Z_{1}$
+
+Frente a este modelo se realiza la extención de modelo para que nos de como resultado:
+
+* $X_{1} \cdot = X_{2}$
+
+* $X_{2} \cdot = X_{3} + b_{0}u$
+
+* $Z_{3} \cdot = h$
+
+* $y = X_{1}$
 
 En base al sistema definido previamente mediante el observador de estados, se halla la acción de control necesaria que está delimitada por la siguiente ecuación: 
 
 $U_{0} = k_{1}(r\sim - z_{1})-k_{2}z_{2}$
 
 En sistemas lineales, el Rechazo Activo de Perturbaciones (ADRC) ofrece una alternativa eficaz a los controladores clásicos como el PID, al no depender de un modelo matemático preciso. En este enfoque, se considera una planta lineal simple, y cualquier dinámica no modelada, incertidumbre o perturbación externa se agrupa como perturbación total, la cual es estimada en tiempo real mediante un observador extendido (ESO).
+
+![image](https://github.com/user-attachments/assets/8d52a0a1-2699-4b4e-bffb-47e4ef81a62f)
+
+*Imagen 9. Comparación ADRC y PID*
 
 Una vez estimada, esta perturbación se compensa activamente con la acción de control, logrando un comportamiento deseado del sistema. En el caso lineal, el diseño del ADRC es más sencillo y directo, lo que lo convierte en una opción atractiva para aplicaciones prácticas donde se busca simplicidad, robustez y buen desempeño dinámico.
 
@@ -237,6 +257,18 @@ El observador extendido de estados (ESO) es una parte fundamental del Rechazo Ac
 
 Este observador se actualiza en tiempo real y permite que el controlador reaccione rápidamente a cualquier cambio inesperado, rechazando activamente las perturbaciones sin requerir un modelo preciso de la planta. Gracias a esta estimación, el controlador puede compensar los efectos negativos y forzar al sistema a seguir el comportamiento deseado, incluso bajo condiciones adversas.
 
+Frente al desarrollo del observador de estados planteamos la fórmula inicial de estado para el desarrollo del análisis matemático:
+
+$X_{k+1} = AX_{k} + Bu_{k}$
+
+Con base al análisis de la ecuación de estados desarrollamos la ecuación de Observador:
+
+$X_{k+1}^{\wedge} = AX_{k}^{\wedge} + Bu + L(y_{k} - X_{k}^{\wedge})$
+
+![image](https://github.com/user-attachments/assets/54e9d6e3-2fdd-454b-9735-67a590628d43)
+
+*Imagen 10. Observador de Estados*
+
 Para un sistema discreto con perturbaciones el diseño de la estimación de parámetros estaría dado por: 
 
 * $X_{k+1} = A * X_{k} + B * u_{k} + F * d_{k}$
@@ -245,43 +277,42 @@ Para un sistema discreto con perturbaciones el diseño de la estimación de par�
 
 Si durante el proceso de funcionamiento del sistema, vemos que la perturbación es constante $d(k+1) = d(k)$, se añade como variable de estado.
 
-![image](https://github.com/user-attachments/assets/86410201-64f7-4431-8e85-f099ae02327e)
-
-*Imagen 5. Matriz Observador de Estados*
+$$Faltante diapositiva 18$$
 
 Una vez se tenga el diseño del sistema con las perturbaciones añadidas, se puede diseñar el obseradoir de estados compensanndo el efecto de la salida mediante una pre-alimentación del sistema.
 
-![image](https://github.com/user-attachments/assets/5cb72645-a5d9-40a1-b23d-5ebafd66ff57)
-
-*Imagen 6. Observador de estados con Perturbaciones*
+$$FAltante diapositiva 19$$
 
 Una vez obtenido la representación de espacio de estados mediante una matriz, se construye el observador de Luenberger.
+
+$$Faltante diapositiva 20$$
 
 ## 6. Observador de Luenberger
 
 El Observador de Luenberger es una herramienta utilizada en sistemas lineales para estimar los estados internos de un sistema dinámico cuando no todos pueden ser medidos directamente. Se basa en un modelo matemático del sistema y en la retroalimentación del error entre la salida real y la estimada, ajustando así las estimaciones de los estados.
 
+![image](https://github.com/user-attachments/assets/853ca022-0859-4ff8-bf79-434464528794)
+
+*Imagen 11. Observador de Luenberger*
+
 Su estructura combina el modelo del sistema con una ganancia de observación que permite corregir las estimaciones en función de la diferencia entre la salida medida y la estimada. Este observador es ampliamente utilizado en control clásico y moderno por su simplicidad, efectividad y bajo costo computacional.
 
 En el diseño de este observador, se tiene el coeficinete $X^{\bigtriangleup \cdot }$ el cual es el vector asociado a los coeficientes que determinarán el polinomio de hurwitz asociado a la dinámica del error de estimación $e_{y} \sim$ definido como $e_{y} \sim = y- y^{\bigtriangleup }$
 
-![image](https://github.com/user-attachments/assets/9310ba09-f977-4e47-9479-74be49fb3936)
-
-*Imagen 7.Observador de Luenberger*
+*Faltante diapositiva 21*
 
 Al restar las ecuaciones del sistema real y del observador, se obtiene una ecuación que describe la dinámica del error de estimación. Esta dinámica está gobernada por una matriz, conocida como matriz del error, cuya estructura determina la estabilidad del observador. A partir de esta matriz, se puede obtener el polinomio característico, el cual permite analizar y ubicar los polos del observador para garantizar una convergencia rápida y estable del error hacia cero.
 
-![image](https://github.com/user-attachments/assets/023ab6a0-9c54-4ee6-b0a8-a46de6657d08)
+$(e_{y}^{\sim })^{n+m}+ \lambda_{n+m-1}(e_{y}^{\sim })^{n+m-1} + \lambda_{n+m-2}(e_{y}^{\sim })^{n+m-2} + ... + \lambda_{2}(e_{y}^{\sim })^{2} + \lambda_{1}e_{y}^{\sim \cdot } + \lambda_{0}e_{y}^{\sim } = \epsilon ^{(m)} (t)$
 
-*Imagen 8. Ecuaciones dinámica el error*
+
+$p(s)=s^{n+m} + \lambda_{n+m-1}s^{n+m-1} + \lambda_{n+m-2}s^{n+m-2} + ... + \lambda_{2}s^{2} + \lambda_{1}s + \lambda_{0}$
 
 Los coeficientes 𝜆𝜉 se eligen de manera que el polinomio característico de la dinámica del error de estimación tenga raíces en el semiplano izquierdo del plano complejo. Esto asegura que el sistema sea estable, cumpliendo con la condición de ser un polinomio de Hurwitz, lo cual garantiza que el error de estimación tienda a cero con el tiempo.
 
 Donde 𝜀 representa la estimación de la perturbación generalizada, la cual se obtiene mediante un observador de estados. Se asume que esta perturbación puede ser aproximada por un polinomio en función del tiempo, lo que permite incluirla dentro del modelo del observador y estimarla junto con los estados del sistema.
 
-![image](https://github.com/user-attachments/assets/6637f441-68eb-4822-a0cf-141b4ec3b3e8)
-
-*Imagen 9. Polinomio en función del tiempo*
+$\zeta(t) = K_{0} + K_{1}t + K_{2}t^{2} + ... + k_{m}t^{m} +r(t)$
 
 Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y considerando r(t) como el residuo entre la salida real y estimada, es posible diseñar un observador extendido que no solo estime las derivadas de la salida, sino también la perturbación generalizada y sus derivadas. Este enfoque permite capturar dinámicamente el efecto de perturbaciones e incertidumbres, facilitando su rechazo activo mediante la acción de control.
 
