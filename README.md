@@ -434,5 +434,22 @@ Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y cons
 
 ## 7. Conclusiones
 
+El control por Rechazo Activo de Perturbaciones (ADRC) representa una evolución en el diseño de sistemas de control al no depender de un modelo exacto de la planta. Su capacidad para estimar y compensar dinámicamente perturbaciones internas y externas lo hace altamente robusto y adaptable.
+
+En comparación con métodos clásicos como PID o controladores basados en modelos (por ejemplo, LQR o controladores en espacio de estados), ADRC ofrece las siguientes ventajas:
+
+* Robustez ante incertidumbre: ADRC no requiere un modelo matemático preciso, lo que lo hace ideal para sistemas con dinámicas no lineales, parámetros variables o difícil modelado.
+* Rechazo activo de perturbaciones: Utiliza un observador extendido (ESO) que estima en tiempo real las perturbaciones, mejorando significativamente el desempeño frente a cambios en la carga o condiciones externas.
+* Tiempo de respuesta rápido y estable: Gracias a su estructura desacoplada, permite un ajuste más directo de la dinámica deseada sin comprometer la estabilidad.
+* Versatilidad: Puede aplicarse tanto en sistemas lineales como no lineales, en control de posición, velocidad, temperatura, entre otros.
+
+Estas características posicionan al ADRC como una alternativa moderna y efectiva frente a métodos tradicionales, especialmente en aplicaciones donde la incertidumbre y las perturbaciones juegan un papel crítico.
+
 
 ## 8. Referencias
+
+* Zhu, Q., Han, J., & Wang, Y. (2015). Active disturbance rejection control for nonlinear systems. Springer. https://doi.org/10.1007/978-3-319-11265-5
+* Zhang, Q., & Gao, Z. (2011). An active disturbance rejection based motion control system for piezoelectric actuators. IEEE/ASME Transactions on Mechatronics, 16(4), 724–733. https://doi.org/10.1109/TMECH.2010.2051653
+* Han, J. (2009). From PID to active disturbance rejection control. ISA Transactions, 48(2), 298–305. https://doi.org/10.1016/j.isatra.2008.08.003
+* Gao, Z. (2006). Active disturbance rejection control: A paradigm shift in feedback control system design. Proceedings of the American Control Conference, 2399–2405. https://doi.org/10.1109/ACC.2006.1656585
+* Zhou, Y., & Gao, Z. (2015). Design and application of ADRC for practical systems. IEEE Transactions on Industrial Electronics, 62(9), 5916–5924. https://doi.org/10.1109/TIE.2015.2423831
