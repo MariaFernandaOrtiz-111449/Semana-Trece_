@@ -372,7 +372,50 @@ Su estructura combina el modelo del sistema con una ganancia de observación que
 
 En el diseño de este observador, se tiene el coeficinete $X^{\bigtriangleup \cdot }$ el cual es el vector asociado a los coeficientes que determinarán el polinomio de hurwitz asociado a la dinámica del error de estimación $e_{y} \sim$ definido como $e_{y} \sim = y- y^{\bigtriangleup }$
 
-**
+$${\begin{pmatrix*}[r]
+{{x_{1}}^{\wedge }}^{\cdot }\\
+{{x_{2}}^{\wedge }}^{\cdot }\\
+\cdot\\
+{{x_{n-1}}^{\wedge }}^{\cdot }\\
+{{x_{n}}^{\wedge }}^{\cdot }\\
+\cdot\\
+{{x_{n+m-1}}^{\wedge }}^{\cdot }\\
+{{x_{n+m}}^{\wedge }}^{\cdot }
+\end{pmatrix*}} = {\begin{pmatrix*}[r]
+O_{n + m \cdot 1} & I_{n + m - 1 \cdot n + m - 1}\\
+0 & O_{1 \cdot n + m - 1}
+\end{pmatrix*}}{\begin{pmatrix*}[r]
+{x_{1}}^{\wedge }\\
+{x_{2}}^{\wedge }\\
+\cdot\\
+{x_{n}}^{\wedge }\\
+{\xi_{1}}^{\wedge }\\
+\cdot\\
+{\xi^{\wedge }}^{(m-2)}\\
+{\xi^{\wedge }}^{(m-1)}\\
+\end{pmatrix*}} + {\begin{pmatrix*}[r]
+0\\
+0\\
+\cdot\\
+0\\
+1\\
+\cdot\\
+0\\
+0\\
+\end{pmatrix*}}u + {\begin{pmatrix*}[r]
+\lambda_{n + m - 1}\\
+\lambda_{n + m - 2}\\
+\cdot\\
+\lambda_{m + 1}\\
+\lambda_{m}\\
+\cdot\\
+\lambda_{1}\\
+\lambda_{0}\\
+\end{pmatrix*}} {\epsilon_{y}}^{\wedge}(t)$$
+
+$$Y^{\wedge} = {\begin{pmatrix*}[r]
+1 & 0 & 0 & \cdot & \cdot & \cdot & 0
+\end{pmatrix*}}{X_{\xi}}^{\wedge}$$
 
 Al restar las ecuaciones del sistema real y del observador, se obtiene una ecuación que describe la dinámica del error de estimación. Esta dinámica está gobernada por una matriz, conocida como matriz del error, cuya estructura determina la estabilidad del observador. A partir de esta matriz, se puede obtener el polinomio característico, el cual permite analizar y ubicar los polos del observador para garantizar una convergencia rápida y estable del error hacia cero.
 
