@@ -5,10 +5,33 @@ Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Fel
 
 # Indice
 
+1. [Control de Movimiento (Rechazo a Perturbaciones)](#Control-de-Movimiento-(Rechazo-Activo-a-Perturbaciones))
+   
+    1.1. [Introducción al Rechazo Activo de Perturbaciones](#Introducción-al-Rechazo-Activo-de-Perturbaciones)
 
-# 1. Control de Movimiento (Rechazo Activo a Perturbaciones)
+2. [Conceptos Básicos](#Conceptos-Básicos)
+  
+3. [ADCR](#ADCR)
+   
+4. [Componentes de un ADRC](#Componentes-de-un-ADRC)
+   
+5. [Rechazo Activo a Perturbaciones Sistema No Lineal](#Rechazo-Activo-a-Perturbaciones-Sistema-No-Lineal)
 
-**1.1 Introducción al Rechazo Activo de Perturbaciones**
+    5.1. [Funciones para la Acción de Control en el Caso No Lineal](#Funciones-para-la-Acción-de-Control-en-el-Caso-No-Lineal)   
+
+6. [Rechazo Activo a Perturbaciones Sistema Lineal](#Rechazo-Activo-a-Perturbaciones-Sistema-Lineal)
+  
+7. [Observador de estados ADRC](#Observador-de-estados-ADRC)
+
+8. [Observador de Luenberger](#Observador-de-Luenberger)
+
+9. [Conclusiones](#Conclusiones)
+
+10. [Referencias](#Referencias)
+
+# 1. Control de Movimiento (Rechazo Activo a Perturbaciones) <a id="Control-de-Movimiento-(Rechazo-Activo-a-Perturbaciones)"></a>
+
+**1.1 Introducción al Rechazo Activo de Perturbaciones** <a id="Introducción-al-Rechazo-Activo-de-Perturbaciones"></a>
 
 En los sistemas de control, uno de los principales desafíos es mantener el desempeño deseado ante la presencia de perturbaciones externas o internas que pueden afectar negativamente el comportamiento del sistema. El rechazo de perturbaciones es, por tanto, un aspecto fundamental para garantizar la estabilidad, precisión y robustez del control.
 
@@ -38,7 +61,7 @@ Situación: Un dron en vuelo debe mantener su cámara estable frente a vibracion
 
 Imagen 2. Ejemplo 2
 
-## 2. Conceptos Básicos
+## 2. Conceptos Básicos <a id="Conceptos-Básicos"></a>
 
 * Perturbaciones y modelo: ADRC funciona bien incluso si el modelo del sistema es inexacto y hay perturbaciones desconocidas.
 
@@ -50,7 +73,7 @@ Imagen 2. Ejemplo 2
 
 * Robustez y simplicidad: Es robusto frente a incertidumbre y fácil de ajustar con pocos parámetros.
 
-## 3. ADCR
+## 3. ADCR <a id= "ADCR"></a>
 
 Durante el proceso de desistimar las pertubaciones, el sistema utiliza una ley de control, la cual indica el resultado de realizar la estimación de una función no lineal del error utilizando un observador de estados extendido no lineal.
 
@@ -69,7 +92,7 @@ Durante el año 2014 Gao destaca 3 características sobre el funcionamiento ADRC
 
 * El ADRC busca que el sistema real se comporte de forma similar a una planta nominal, lo cual simplifica el diseño del controlador y permite lograr un desempeño deseado sin depender de un modelo preciso.
 
-## 4. Componentes de un ADRC
+## 4. Componentes de un ADRC <a id="Componentes-de-un-ADRC"></a>
 
 Para que el sistema funcione de una manera eficiente debe contener ciertos componentes  programables para la identificación del sistema y parámetros del mismo.
 
@@ -85,12 +108,12 @@ Para que el sistema funcione de una manera eficiente debe contener ciertos compo
 
 💡Ejemplo 3: Control de Posición de un Motor DC
 
-### Sistema:
+**Sistema:**
 * Planta: Motor DC con fricción y carga variable.
 
 * Objetivo: Controlar la posición angular del eje.
 
-### Implementación ADRC:
+**Implementación ADRC:**
 * TD: Suaviza la señal de referencia angular $\theta _{ref}$ y obtiene su derivada (velocidad deseada).
 
 * ESO: Estima la velocidad real del motor y la perturbación total (fricción + carga variable).
@@ -106,13 +129,13 @@ Para que el sistema funcione de una manera eficiente debe contener ciertos compo
 
 💡Ejemplo 4: Plataforma Inclinable (Gimbal)
 
-### Sistema:
+**Sistema:**
 
 * Planta: Plataforma 2DOF para mantener una cámara estable.
 
 * Objetivo: Controlar el ángulo en pitch y roll frente a perturbaciones (movimiento del dron, viento).
 
-### Implementación ADRC:
+**Implementación ADRC:**
 
 * TD: Suaviza los ángulos deseados para la cámara.
 
@@ -126,7 +149,7 @@ Para que el sistema funcione de una manera eficiente debe contener ciertos compo
 
 *Imagen 6. Plataforma Inclinable*
 
-## 5. Rechazo Activo a Perturbaciones Sistema No lineal
+## 5. Rechazo Activo a Perturbaciones Sistema No lineal <a id="Rechazo-Activo-a-Perturbaciones-Sistema-No-Lineal"></a>
 
 En el control de sistemas no lineales, uno de los mayores desafíos es lidiar con la complejidad del modelo y la presencia de perturbaciones externas o dinámicas internas no modeladas. A diferencia de los sistemas lineales, donde existen métodos bien establecidos para el diseño de controladores, los sistemas no lineales requieren enfoques más flexibles y robustos.
 
@@ -197,7 +220,7 @@ Una vez que se realiza el proceso en el espacio de estados, obtenemos la funció
 * $y = X_{1}$
 
 
-### 3.1. Funciones para la Acción de Control en el Caso No Lineal
+### 5.1. Funciones para la Acción de Control en el Caso No Lineal <a id="Funciones-para-la-Acción-de-Control-en-el-Caso-No-Lineal"></a>
 
 En el control ADRC aplicado a sistemas no lineales, la acción de control se diseña utilizando funciones no lineales que mejoran la robustez y la capacidad de rechazo de perturbaciones. Entre estas funciones destaca la función de no linealidad tipo fal (del inglés function approaching linearity), la cual suaviza el comportamiento del controlador cerca del origen y actúa como ganancia variable, adaptándose a la magnitud del error.
 
@@ -217,7 +240,7 @@ Para hallar los parámetros de ganancias del sistema del observador y del contro
 
 * $|e^{\sim }| sign(e^{\sim }),   |X|>\delta$
 
-## 4.  Rechazo Activo a Perturbaciones Sistema Lineal
+## 6.  Rechazo Activo a Perturbaciones Sistema Lineal <a id="Rechazo-Activo-a-Perturbaciones-Sistema-Lineal"></a>
 
 Para el sistema lineal se realiza un observador de estados para la función aplicando transformada Z:
 
@@ -251,7 +274,7 @@ En sistemas lineales, el Rechazo Activo de Perturbaciones (ADRC) ofrece una alte
 
 Una vez estimada, esta perturbación se compensa activamente con la acción de control, logrando un comportamiento deseado del sistema. En el caso lineal, el diseño del ADRC es más sencillo y directo, lo que lo convierte en una opción atractiva para aplicaciones prácticas donde se busca simplicidad, robustez y buen desempeño dinámico.
 
-## 5. Observador de estados ADRC
+## 7. Observador de estados ADRC <a id="Observador-de-estados-ADRC"></a>
 
 El observador extendido de estados (ESO) es una parte fundamental del Rechazo Activo de Perturbaciones (ADRC). Su función principal es estimar no solo los estados internos del sistema, sino también una señal adicional que representa la perturbación total, es decir, la combinación de dinámicas no modeladas, incertidumbres del sistema y perturbaciones externas.
 
@@ -360,7 +383,7 @@ $$Y= {\begin{pmatrix*}[r]
 1 & 0 & 0 & \cdot & \cdot & \cdot & 0 & 0
 \end{pmatrix*}}X$$
 
-## 6. Observador de Luenberger
+## 8. Observador de Luenberger <a id="Observador-de-Luenberger"></a>
 
 El Observador de Luenberger es una herramienta utilizada en sistemas lineales para estimar los estados internos de un sistema dinámico cuando no todos pueden ser medidos directamente. Se basa en un modelo matemático del sistema y en la retroalimentación del error entre la salida real y la estimada, ajustando así las estimaciones de los estados.
 
@@ -432,7 +455,7 @@ $\zeta(t) = K_{0} + K_{1}t + K_{2}t^{2} + ... + k_{m}t^{m} +r(t)$
 
 Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y considerando r(t) como el residuo entre la salida real y estimada, es posible diseñar un observador extendido que no solo estime las derivadas de la salida, sino también la perturbación generalizada y sus derivadas. Este enfoque permite capturar dinámicamente el efecto de perturbaciones e incertidumbres, facilitando su rechazo activo mediante la acción de control.
 
-## 7. Conclusiones
+## 9. Conclusiones <a id="Conclusiones"></a>
 
 El control por Rechazo Activo de Perturbaciones (ADRC) representa una evolución en el diseño de sistemas de control al no depender de un modelo exacto de la planta. Su capacidad para estimar y compensar dinámicamente perturbaciones internas y externas lo hace altamente robusto y adaptable.
 
@@ -446,7 +469,7 @@ En comparación con métodos clásicos como PID o controladores basados en model
 Estas características posicionan al ADRC como una alternativa moderna y efectiva frente a métodos tradicionales, especialmente en aplicaciones donde la incertidumbre y las perturbaciones juegan un papel crítico.
 
 
-## 8. Referencias
+## 10. Referencias <a id="Referencias"></a>
 
 * Zhu, Q., Han, J., & Wang, Y. (2015). Active disturbance rejection control for nonlinear systems. Springer. https://doi.org/10.1007/978-3-319-11265-5
 * Zhang, Q., & Gao, Z. (2011). An active disturbance rejection based motion control system for piezoelectric actuators. IEEE/ASME Transactions on Mechatronics, 16(4), 724–733. https://doi.org/10.1109/TMECH.2010.2051653
