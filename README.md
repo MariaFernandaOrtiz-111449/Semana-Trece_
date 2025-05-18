@@ -277,15 +277,88 @@ Para un sistema discreto con perturbaciones el diseño de la estimación de par�
 
 Si durante el proceso de funcionamiento del sistema, vemos que la perturbación es constante $d(k+1) = d(k)$, se añade como variable de estado.
 
-$$Faltante diapositiva 18$$
+$${
+\begin{pmatrix*}[r]
+X(k+1)\\
+d(k+1)
+\end{pmatrix*}
+} = X_{a}(k+1) = {\begin{pmatrix*}[r]
+A & F\\
+0 & I
+\end{pmatrix*}} \cdot X_{a}(k) + {\begin{pmatrix*}[r]
+B\\
+0
+\end{pmatrix*}}\cdot u(k)$$
 
-Una vez se tenga el diseño del sistema con las perturbaciones añadidas, se puede diseñar el obseradoir de estados compensanndo el efecto de la salida mediante una pre-alimentación del sistema.
 
-$$FAltante diapositiva 19$$
+$$y(k) = {\begin{pmatrix*}[r]
+C & 0
+\end{pmatrix*}}\cdot X_{a}(k)$$
 
-Una vez obtenido la representación de espacio de estados mediante una matriz, se construye el observador de Luenberger.
+Una vez se tenga el diseño del sistema con las perturbaciones añadidas, se puede diseñar el obserador de estados compensanndo el efecto de la salida mediante una pre-alimentación del sistema.
 
-$$Faltante diapositiva 20$$
+$X_{k+1} = A \cdot X_{k} + B \cdot u_{k} + F \cdot d_{k}$
+
+$y_{k} = C \cdot X_{k}$
+
+Para el sistema discreto con perturbaciones obtenemos la siguiente matriz:
+
+$${
+\begin{pmatrix*}[r]
+X(k+1)\\
+d(k+1)
+\end{pmatrix*}
+} = X_{a}(k+1) = {\begin{pmatrix*}[r]
+A & F\\
+0 & I
+\end{pmatrix*}} \cdot X_{a}(k) + {\begin{pmatrix*}[r]
+B\\
+0
+\end{pmatrix*}}\cdot u(k)$$
+
+
+$$y(k) = {\begin{pmatrix*}[r]
+C & 0
+\end{pmatrix*}}\cdot X_{a}(k)$$
+
+Una vez obtenido la representación de espacio de estados mediante una matriz, se construye el observador con representación en espacio de estados.
+
+$y^{(n)}(t) = u(t) + \xi (t)$
+
+$${\begin{pmatrix*}[r]
+{X_{1}}^{\cdot}\\
+{X_{2}}^{\cdot}\\
+{X_{3}}^{\cdot}\\
+\cdot\\
+{X_{n-1}}^{\cdot}\\
+{X_{n}}^{\cdot}\\
+\end{pmatrix*}
+} = {\begin{pmatrix*}[r]
+0 & 1 & 0 & \cdot & \cdot & \cdot & 0 & 0\\
+0 & 0 & 1 & \cdot & \cdot & \cdot & 0 & 0\\
+0 & 0 & 0 & \cdot & \cdot & \cdot & 0 & 0\\ 
+\cdot & \cdot & \cdot & \cdot & \cdot & \cdot & 1 & 0\\
+0 & 0 & 0 & \cdot & \cdot & \cdot & 0 & 1\\ 
+0 & 0 & 0 & \cdot & \cdot & \cdot & 0 & 0\\ 
+\end{pmatrix*}} {\begin{pmatrix*}[r]
+X_{1}\\
+X_{2}\\
+X_{3}\\
+\cdot\\
+X_{n-1}\\
+X_{n}
+\end{pmatrix*}} + {\begin{pmatrix*}[r]
+0\\
+0\\
+0\\
+\cdot\\
+0\\
+1
+\end{pmatrix*}} (u(t) + \xi (t))$$
+
+$$Y= {\begin{pmatrix*}[r]
+1 & 0 & 0 & \cdot & \cdot & \cdot & 0 & 0
+\end{pmatrix*}}X$$
 
 ## 6. Observador de Luenberger
 
@@ -299,7 +372,7 @@ Su estructura combina el modelo del sistema con una ganancia de observación que
 
 En el diseño de este observador, se tiene el coeficinete $X^{\bigtriangleup \cdot }$ el cual es el vector asociado a los coeficientes que determinarán el polinomio de hurwitz asociado a la dinámica del error de estimación $e_{y} \sim$ definido como $e_{y} \sim = y- y^{\bigtriangleup }$
 
-*Faltante diapositiva 21*
+**
 
 Al restar las ecuaciones del sistema real y del observador, se obtiene una ecuación que describe la dinámica del error de estimación. Esta dinámica está gobernada por una matriz, conocida como matriz del error, cuya estructura determina la estabilidad del observador. A partir de esta matriz, se puede obtener el polinomio característico, el cual permite analizar y ubicar los polos del observador para garantizar una convergencia rápida y estable del error hacia cero.
 
