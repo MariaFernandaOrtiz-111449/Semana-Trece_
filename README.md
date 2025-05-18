@@ -170,6 +170,7 @@ Al obtener el sistema en espacio de estados se obtiene que F es la variable desc
 
 * $y=X_{1}$
 
+![image](https://github.com/user-attachments/assets/7ad77ea3-3da8-47c3-bdcd-a9969defa3c1)
 
 *Imagen 8. Observador de estados extendido para NADRC*
 
