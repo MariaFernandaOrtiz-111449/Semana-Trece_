@@ -79,7 +79,7 @@ Para que el sistema funcione de una manera eficiente debe contener ciertos compo
 
 * Controlador proporcional por retroalimentación de estados
 
-![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/03f9ebe2b21b3c40e13901f090c58441aeba6d6b/Componentes%20ADRC.png)
+![image](https://github.com/user-attachments/assets/303c6b13-59a9-4a94-b5fe-151142c98d67)
 
 *Imagen 4. Compontentes ADRC*
 
@@ -170,7 +170,6 @@ Al obtener el sistema en espacio de estados se obtiene que F es la variable desc
 
 * $y=X_{1}$
 
-![](https://github.com/MariaFernandaOrtiz-111449/Semana-Doce/blob/36e779fc961ac85343fa1080678cede0f9b1ab02/Observador%20de%20estados%20extendido.png)
 
 *Imagen 8. Observador de estados extendido para NADRC*
 
