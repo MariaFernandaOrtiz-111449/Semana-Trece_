@@ -25,9 +25,11 @@ Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Fel
 
 8. [Observador de Luenberger](#Observador-de-Luenberger)
 
-9. [Conclusiones](#Conclusiones)
+9. [Ejemplo](#Ejemplo)
+    
+10. [Conclusiones](#Conclusiones)
 
-10. [Referencias](#Referencias)
+11. [Referencias](#Referencias)
 
 # 1. Control de Movimiento (Rechazo Activo a Perturbaciones) <a id="Control-de-Movimiento-(Rechazo-Activo-a-Perturbaciones)"></a>
 
@@ -455,7 +457,18 @@ $\zeta(t) = K_{0} + K_{1}t + K_{2}t^{2} + ... + k_{m}t^{m} +r(t)$
 
 Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y considerando r(t) como el residuo entre la salida real y estimada, es posible diseñar un observador extendido que no solo estime las derivadas de la salida, sino también la perturbación generalizada y sus derivadas. Este enfoque permite capturar dinámicamente el efecto de perturbaciones e incertidumbres, facilitando su rechazo activo mediante la acción de control.
 
-## 9. Conclusiones <a id="Conclusiones"></a>
+## 9. Ejemplo <a id="Ejemplo"></a>
+
+En este caso se quiere realizar el control de posición del motor DC del QUBE-Servo 2 en Simulink, para ello se implementó un controlador con rechazo de perturbaciones basado en un observador por espacio de estados. Primero, se obtuvo el modelo del sistema en espacio de estados, incluyendo las variables de posición, velocidad y corriente. Luego, se diseñó un observador de estado extendido que estima no solo los estados del sistema, sino también una perturbación externa modelada como una entrada adicional. Este observador permite compensar perturbaciones no medidas en tiempo real. Con base en las estimaciones del observador, se aplicó una ley de control por realimentación de estados para asegurar que la posición del motor siga con precisión la referencia deseada, incluso en presencia de perturbaciones. El sistema fue implementado y simulado en Simulink, mostrando resultados favorables: el motor alcanzó la posición objetivo con alta precisión, tiempo de establecimiento reducido, logrando un desempeño superior al de un control de posición clásico sin observador.
+El montaje por bloques de simulink, se muestra a continuación:
+
+![image](https://github.com/user-attachments/assets/853ca022-0859-4ff8-bf79-434464528794)
+
+La respuesta del controlador, a una entrada de perfil de posición trapezoidal, se muestra en la siguiente grafica: 
+
+![image](https://github.com/user-attachments/assets/853ca022-0859-4ff8-bf79-434464528794)
+
+## 10. Conclusiones <a id="Conclusiones"></a>
 
 El control por Rechazo Activo de Perturbaciones (ADRC) representa una evolución en el diseño de sistemas de control al no depender de un modelo exacto de la planta. Su capacidad para estimar y compensar dinámicamente perturbaciones internas y externas lo hace altamente robusto y adaptable.
 
@@ -469,7 +482,7 @@ En comparación con métodos clásicos como PID o controladores basados en model
 Estas características posicionan al ADRC como una alternativa moderna y efectiva frente a métodos tradicionales, especialmente en aplicaciones donde la incertidumbre y las perturbaciones juegan un papel crítico.
 
 
-## 10. Referencias <a id="Referencias"></a>
+## 11. Referencias <a id="Referencias"></a>
 
 * Zhu, Q., Han, J., & Wang, Y. (2015). Active disturbance rejection control for nonlinear systems. Springer. https://doi.org/10.1007/978-3-319-11265-5
 * Zhang, Q., & Gao, Z. (2011). An active disturbance rejection based motion control system for piezoelectric actuators. IEEE/ASME Transactions on Mechatronics, 16(4), 724–733. https://doi.org/10.1109/TMECH.2010.2051653
