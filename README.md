@@ -462,7 +462,7 @@ Suponiendo que la perturbación generalizada estimada cumple ε^(m)(t)=0, y cons
 En este caso se quiere realizar el control de posición del motor DC del QUBE-Servo 2 en Simulink, para ello se implementó un controlador con rechazo de perturbaciones basado en un observador por espacio de estados. Primero, se obtuvo el modelo del sistema en espacio de estados, incluyendo las variables de posición, velocidad y corriente. Luego, se diseñó un observador de estado extendido que estima no solo los estados del sistema, sino también una perturbación externa modelada como una entrada adicional. Este observador permite compensar perturbaciones no medidas en tiempo real. Con base en las estimaciones del observador, se aplicó una ley de control por realimentación de estados para asegurar que la posición del motor siga con precisión la referencia deseada, incluso en presencia de perturbaciones. El sistema fue implementado y simulado en Simulink, mostrando resultados favorables: el motor alcanzó la posición objetivo con alta precisión, tiempo de establecimiento reducido, logrando un desempeño superior al de un control de posición clásico sin observador.
 El montaje por bloques de simulink, se muestra a continuación:
 
-![image](https://github.com/user-attachments/assets/853ca022-0859-4ff8-bf79-434464528794)
+![Image](https://github.com/user-attachments/assets/4ac7d569-df3e-4167-962a-66f09143ddbb)
 
 La respuesta del controlador, a una entrada de perfil de posición trapezoidal, se muestra en la siguiente grafica: 
 
