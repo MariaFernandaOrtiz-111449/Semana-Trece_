@@ -466,7 +466,7 @@ El montaje por bloques de simulink, se muestra a continuación:
 
 La respuesta del controlador, a una entrada de perfil de posición trapezoidal, se muestra en la siguiente grafica: 
 
-![image](https://github.com/user-attachments/assets/853ca022-0859-4ff8-bf79-434464528794)
+![Image](https://github.com/user-attachments/assets/39df4508-9de2-43d8-a1f6-092d8255a4fa)
 
 ## 10. Conclusiones <a id="Conclusiones"></a>
 
